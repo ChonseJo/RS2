@@ -1,0 +1,70 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-2493ede7a65004cfc477.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "bottle_cap_vision",
+					"targetIndexes" : 
+					[
+						0,
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "cap_centroid_detector::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cap_centroid_detector-Debug-61aab9b21506e3cceb78.json",
+					"name" : "cap_centroid_detector",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "hsv_click_detector::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-hsv_click_detector-Debug-2055eb69a97521589905.json",
+					"name" : "hsv_click_detector",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/luis/ros2_ws/src/bottle_cap_vision/build",
+		"source" : "/home/luis/ros2_ws/src/bottle_cap_vision"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

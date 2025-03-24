@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/luis/ros2_ws/src/bottle_cap_vision/build",
+  "command": "/usr/bin/c++  -isystem /usr/include/opencv4 -g -o CMakeFiles/cap_centroid_detector.dir/src/cap_centroid_detector.cpp.o -c /home/luis/ros2_ws/src/bottle_cap_vision/src/cap_centroid_detector.cpp",
+  "file": "/home/luis/ros2_ws/src/bottle_cap_vision/src/cap_centroid_detector.cpp"
+},
+{
+  "directory": "/home/luis/ros2_ws/src/bottle_cap_vision/build",
+  "command": "/usr/bin/c++  -isystem /usr/include/opencv4 -g -o CMakeFiles/hsv_click_detector.dir/src/hsv_click_detector.cpp.o -c /home/luis/ros2_ws/src/bottle_cap_vision/src/hsv_click_detector.cpp",
+  "file": "/home/luis/ros2_ws/src/bottle_cap_vision/src/hsv_click_detector.cpp"
+}
+]

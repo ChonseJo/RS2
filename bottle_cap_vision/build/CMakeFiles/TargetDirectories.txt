@@ -1,0 +1,8 @@
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/cap_centroid_detector.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/hsv_click_detector.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/edit_cache.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/rebuild_cache.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/list_install_components.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/install.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/install/local.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/install/strip.dir
