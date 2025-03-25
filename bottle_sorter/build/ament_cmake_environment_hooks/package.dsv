@@ -1,0 +1,4 @@
+source;share/bottle_sorter/local_setup.bash
+source;share/bottle_sorter/local_setup.dsv
+source;share/bottle_sorter/local_setup.sh
+source;share/bottle_sorter/local_setup.zsh

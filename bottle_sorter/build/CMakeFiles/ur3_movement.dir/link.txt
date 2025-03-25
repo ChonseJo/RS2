@@ -1,0 +1,2 @@
+/usr/bin/ar qc libur3_movement.a CMakeFiles/ur3_movement.dir/src/ur3_movement.cpp.o
+/usr/bin/ranlib libur3_movement.a
