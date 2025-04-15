@@ -16,7 +16,7 @@ find_package(tf2_ros REQUIRED)
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}
 )
-install(DIRECTORY config
+install(DIRECTORY include
   DESTINATION share/${PROJECT_NAME}
 )
 
