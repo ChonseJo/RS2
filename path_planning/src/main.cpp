@@ -63,11 +63,13 @@ int main(int argc, char * argv[])
 	path_planner->setJointGoal(90, -90, 90, -90, 270, 0);
 	// path_planner->setJointPose(0.3, 0.0, 0.35, roll, pitch, yaw);
 
-	ee_pose = move_group_interface.getCurrentPose();
-	path_planner->setCartPose(	ee_pose.pose.position.x,
-								ee_pose.pose.position.y,
-								ee_pose.pose.position.z,
-								roll, pitch, yaw);
+	// used to make sure the robot is facing straight down
+	// ee_pose = move_group_interface.getCurrentPose();
+	// path_planner->setCartPose(	ee_pose.pose.position.x,
+	// 							ee_pose.pose.position.y,
+	// 							ee_pose.pose.position.z,
+	// 							roll, pitch, yaw);
+
 	path_planner->cartesianIncrement(x, 0, 0);
 	path_planner->cartesianIncrement(0, y, 0);
 	path_planner->cartesianIncrement(-x, 0, 0);
