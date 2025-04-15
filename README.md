@@ -13,6 +13,8 @@ ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur3 launch_rviz:=true
 ros2 launch ur3_bottle_sorter bottle_sorter.launch.py ur_type:=ur3
 
 NOTES:
+- Grip height is 135mm from base of bottle box to base of gripper
+
 Need to add
 - setting positions via the gui and necessary ros2 nodes
 - reading bottle positions
