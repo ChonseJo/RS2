@@ -177,7 +177,7 @@ def launch_setup(context, *args, **kwargs):
 
     # Start my custom node
     bottle_sorter_node = Node(
-        package="bottle_sorter",
+        package="ur3_bottle_sorter",
         executable="bottle_sorter",
         output="screen",
         parameters=[

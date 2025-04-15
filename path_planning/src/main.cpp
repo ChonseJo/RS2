@@ -40,12 +40,15 @@ int main(int argc, char * argv[])
 	path_planner->setMoveGroupPointer(&move_group_interface);
 	path_planner->setScene(); // set the planning scene
 
-	auto const end_effector_pose = move_group_interface.getCurrentPose();
+    // ======================================================================
+	// project code starts here
+    // ======================================================================
+	auto ee_pose = move_group_interface.getCurrentPose();
     // Log the current end-effector pose
     RCLCPP_INFO(logger, "End-effector pose: %f %f %f",
-      end_effector_pose.pose.position.x,
-      end_effector_pose.pose.position.y,
-      end_effector_pose.pose.position.z
+		ee_pose.pose.position.x,
+      	ee_pose.pose.position.y,
+      	ee_pose.pose.position.z
     );
 
 	double roll = 0.0;
@@ -56,9 +59,15 @@ int main(int argc, char * argv[])
 	double y = 0.05;
 	double z = 0.05;
 
+	path_planner->setJointGoal(0, -90, 0, -90, 0, 0);
 	path_planner->setJointGoal(90, -90, 90, -90, 270, 0);
 	// path_planner->setJointPose(0.3, 0.0, 0.35, roll, pitch, yaw);
 
+	ee_pose = move_group_interface.getCurrentPose();
+	path_planner->setCartPose(	ee_pose.pose.position.x,
+								ee_pose.pose.position.y,
+								ee_pose.pose.position.z,
+								roll, pitch, yaw);
 	path_planner->cartesianIncrement(x, 0, 0);
 	path_planner->cartesianIncrement(0, y, 0);
 	path_planner->cartesianIncrement(-x, 0, 0);
