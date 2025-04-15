@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-cf4598142def4a2f1ca9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "bottle_sorter",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "bottle_sorter::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-bottle_sorter-Debug-ead73d834339c085520d.json",
+					"name" : "bottle_sorter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "bottle_sorter_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-bottle_sorter_uninstall-Debug-f7c4ea8a2f35260cfea4.json",
+					"name" : "bottle_sorter_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "path_planning::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-path_planning-Debug-d985bd64d35df36dca78.json",
+					"name" : "path_planning",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Debug-548e5a444ad9f8178a61.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/christian/ros2_ws/src/bottle_sorter/build",
+		"source" : "/home/christian/ros2_ws/src/bottle_sorter"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}
