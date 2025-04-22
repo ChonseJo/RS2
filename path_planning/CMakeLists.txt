@@ -19,6 +19,9 @@ install(DIRECTORY launch
 install(DIRECTORY include
   DESTINATION share/${PROJECT_NAME}
 )
+install(DIRECTORY include/meshes
+  DESTINATION share/${PROJECT_NAME}
+)
 
 # Create pathplanning library
 add_library(path_planning src/path_planning.cpp)

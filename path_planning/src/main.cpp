@@ -59,11 +59,11 @@ int main(int argc, char * argv[])
 	double y = 0.05;
 	double z = 0.05;
 
-	path_planner->setJointGoal(0, -90, 0, -90, 0, 0);
-	path_planner->setJointGoal(90, -90, 90, -90, 270, 0);
+	path_planner->setJointGoal(0, -90, 0, -90, 0, 0); // home position
+	path_planner->setJointGoal(90, -90, 90, -90, -90, 0); // starting position
 	// path_planner->setJointPose(0.3, 0.0, 0.35, roll, pitch, yaw);
 
-	// used to make sure the robot is facing straight down
+	// // used to make sure the robot is facing straight down
 	// ee_pose = move_group_interface.getCurrentPose();
 	// path_planner->setCartPose(	ee_pose.pose.position.x,
 	// 							ee_pose.pose.position.y,
