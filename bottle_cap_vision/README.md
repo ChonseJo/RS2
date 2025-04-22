@@ -1,109 +1,124 @@
-Bottle Cap Vision — RealSense Capture & ROI Grid
+# Bottle Cap Vision — RealSense Capture & ROI Grid
 
-This README covers how to build and run the realsense_capture_node and explains the 3×2 ROI grid logic used to classify coloured bottle caps.
+> **Package**: `bottle_cap_vision`  
+> **Node**: `realsense_capture_node`  
+> **Topic**: Subscribes to `/camera/camera/color/image_raw`
 
-Overview
+---
 
-Package: bottle_cap_vision
+## 1. Overview
 
-Node: realsense_capture_node
+`realsense_capture_node`:
 
-Subscribes to /camera/camera/color/image_raw
+1. Converts each incoming color frame to **HSV**.
+2. Applies **red**, **green**, **blue** masks (via `cv::inRange`).
+3. Splits the frame into a **3 × 2** grid (6 equal cells).
+4. Counts mask pixels in each cell to pick the **dominant colour**.
+5. Logs a 6‑element code sequence (e.g. `C S F | S C F`).
+6. (Optionally) draws colored outlines on a black “dot” canvas.
 
-Detects red, green, blue regions via HSV masks
+---
 
-Divides the frame into a 3‑column × 2‑row grid (6 cells)
+## 2. ROI Grid Logic
 
-Counts mask pixels in each cell to decide the dominant colour
+Treat the full image as one “outer box”:
 
-Logs a 6‑element code sequence (e.g. [C S F | S C F])
+```
++-------+-------+-------+
+|  0    |   1   |   2   |
++-------+-------+-------+
+|  3    |   4   |   5   |
++-------+-------+-------+
+```
 
-Optionally draws outlines on a black-background “dot” view
+- **cell width**  = `image.cols / 3`  
+- **cell height** = `image.rows / 2`
 
-Building
+For each cell `roi`, the node does:
+```cpp
+int cr = cv::countNonZero(red_mask(roi));
+int cg = cv::countNonZero(green_mask(roi));
+int cb = cv::countNonZero(blue_mask(roi));
 
-cd ~/ros2_ws
-colcon build --packages-select bottle_cap_vision --cmake-clean-cache
+if      (cr>cg && cr>cb) slotColour = 1;  // Red
+else if (cg>cr && cg>cb) slotColour = 2;  // Green
+else if (cb>cr && cb>cg) slotColour = 3;  // Blue
+else                     slotColour = 0;  // None/ambiguous
+```
 
-Make sure you have these dependencies in your CMakeLists.txt:
+Then maps:
+```cpp
+1 → 'C'  // Coke (red)
+2 → 'S'  // Sprite (green)
+3 → 'F'  // Fanta (blue)
+```
 
+---
+
+## 3. Building
+
+```bash
+# From your ROS2 workspace root
+colcon build   --packages-select bottle_cap_vision   --cmake-clean-cache
+```
+
+Ensure your **CMakeLists.txt** contains:
+```cmake
+find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(image_transport REQUIRED)
+```
 
-Running
+---
 
-Launch your RealSense driver (e.g. via ros2 launch realsense2_camera rs_camera.launch.py).
+## 4. Running
 
-Run the capture node:
+1. **Launch RealSense driver**  
+   ```bash
+   ros2 launch realsense2_camera rs_camera.launch.py
+   ```
 
-ros2 run bottle_cap_vision realsense_capture_node
+2. **Run the capture node**  
+   ```bash
+   ros2 run bottle_cap_vision realsense_capture_node
+   ```
 
-You should see console output like:
+3. **Observe console log**, e.g.:  
+   ```
+   [INFO] Slots R→B: [1 2 3 | 2 1 3]
+   [INFO] Grid codes: C S F | S C F
+   ```
 
-[INFO] Slots R→B: [1 2 3 | 2 1 3]
-[INFO] Grid codes: C S F | S C F
+4. **Inspect OpenCV windows**:  
+   - **Camera View**: raw color feed  
+   - **Bottle Type**: black‑background outlines  
 
-And two OpenCV windows:
+5. **Press ESC** in either window to exit.
 
-Camera View: raw colour feed
+---
 
-Bottle Type: black-background outlines of detected caps
+## 5. Troubleshooting & Tuning
 
-Press ESC to exit.
+- **HSV thresholds** live in `realsense_capture_node.cpp`.  
+- If colours bleed or miss, adjust the `cv::inRange(...)` scalar values.  
+- To disable the black‑background view, replace  
+  ```cpp
+  cv::Mat dotImage = cv::Mat::zeros(image.size(), image.type());
+  ```
+  with  
+  ```cpp
+  cv::Mat dotImage = image.clone();
+  ```
 
-ROI Grid Explanation
+---
 
-We define an outer rectangle covering the full frame:  cv::Rect(0,0,image.cols,image.rows).
+### Colour→Letter Mapping
 
-Compute cell size:
-
-int cellW = image.cols / 3;
-int cellH = image.rows / 2;
-
-Loop rows 0–1, cols 0–2 to form six cv::Rect ROIs:
-
-roi.x = col*cellW;
-roi.y = row*cellH;
-roi.width  = cellW;
-roi.height = cellH;
-
-Count red, green, blue mask pixels inside each ROI:
-
-int cr = cv::countNonZero(red_mask(roi));
-int cg = cv::countNonZero(green_mask(roi));
-int cb = cv::countNonZero(blue_mask(roi));
-
-Assign a slot code based on the maximum count:
-
-1 = red, 2 = green, 3 = blue, 0 = none
-
-Convert slot codes → letters via a map:
-
-{1→'C', 2→'S', 3→'F'}
-
-Cell index helper:
-
-auto findCellIndex = [&](Point2f pt){
-  int col = min(int(pt.x/cellW),2);
-  int row = min(int(pt.y/cellH),1);
-  return row*3 + col;
-};
-
-This yields a consistent ordering:
-
- [0] [1] [2]
- [3] [4] [5]
-
-Customization
-
-Black vs Live background: switch between Mat::zeros(...) or image.clone() in the drawing section.
-
-Mask thresholds: adjust HSV ranges in cv::inRange(...) calls per your lighting and cap colours.
-
-Noise cleaning: tune medianBlur, morphologyEx, and area thresholds to remove false positives.
-
-Feel free to modify and extend this node for your sorting pipeline!
-
+| Mask ID | Mask  | Letter | Example |
+|:-------:|:-----:|:------:|:-------:|
+| 1       | Red   | `C`    | Coke    |
+| 2       | Green | `S`    | Sprite  |
+| 3       | Blue  | `F`    | Fanta   |
