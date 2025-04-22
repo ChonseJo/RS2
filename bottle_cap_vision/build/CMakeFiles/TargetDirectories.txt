@@ -1,5 +1,11 @@
-/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/cap_centroid_detector.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/uninstall.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/bottle_cap_vision_uninstall.dir
 /home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/hsv_click_detector.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/cap_dot_representation.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/realsense_capture_node.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/image_saver_node.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/test_roi.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/test.dir
 /home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/edit_cache.dir
 /home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/rebuild_cache.dir
 /home/luis/ros2_ws/src/bottle_cap_vision/build/CMakeFiles/list_install_components.dir
