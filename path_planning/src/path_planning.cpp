@@ -34,8 +34,8 @@ public:
     move_group_interface_ = ptr;
 
     // Set the planning time and tolerance
-    move_group_interface_->setPlanningTime(10.0);
-    move_group_interface_->setGoalTolerance(0.1);
+    move_group_interface_->setPlanningTime(5.0);
+    move_group_interface_->setGoalTolerance(0.01);
     move_group_interface_->setStartStateToCurrentState();
   }
 

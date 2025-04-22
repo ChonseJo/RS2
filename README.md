@@ -5,12 +5,12 @@ Hoping to add all of these into a single launch file in order to simplify the pr
 ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3 robot_ip:=yyy.yyy.yyy.yyy use_fake_hardware:=true launch_rviz:=false
 
 // run this command in a second terminal 
-// Load MoveIt
-ros2 launch ur_moveit_config ur_moveit.launch.py ur_type:=ur3 launch_rviz:=true
+// Load MoveIt with custom end effector
+ros2 launch ur3_bottle_sorter ur_moveit.launch.py ur_type:=ur3e launch_rviz:=true
 
 // run this command in a 3rd terminal
 // Run the path planning executable (this is the main executable that will also control the logic for the rest of the system)
-ros2 launch ur3_bottle_sorter bottle_sorter.launch.py ur_type:=ur3
+ros2 launch bottle_sorter bottle_sorter.launch.py ur_type:=ur3e
 
 NOTES:
 - Grip height is 135mm from base of bottle box to base of gripper

@@ -460,5 +460,27 @@
       <child link="${tf_prefix}tool0"/>
     </joint>
 
+    <!-- Custom End Effector Link -->
+    <link name="${tf_prefix}custom_ee_link">
+      <visual>
+        <origin xyz="0 0 0.05" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://ur3_bottle_sorter/include/meshes/endeffector/visual/ee.STL" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0.05" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://ur3_bottle_sorter/include/meshes/endeffector/collision/ee.STL" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${tf_prefix}ee_mount" type="fixed">
+      <parent link="${tf_prefix}tool0"/>
+      <child link="${tf_prefix}custom_ee_link"/>
+      <origin xyz="-0.195 -0.222 0.202" rpy="-1.5708 0 0"/>
+    </joint>
+
   </xacro:macro>
 </robot>
