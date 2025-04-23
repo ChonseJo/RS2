@@ -47,11 +47,24 @@ ros2 launch ur3_bottle_sorter ur_moveit.launch.py ur_type:=ur3e launch_rviz:=tru
 
 ---
 
+## 🎮 Usage
+
+Once launched:
+- Bottles are detected via the camera using bottle_cap_vision.
+- Detected cap colors are classified (e.g., red, green, blue).
+- The path_planning node plans a trajectory based on bottle type.
+- The robot executes the move using MoveIt.
+- The servo_controller communicates with the Arduino to actuate the gripper.
+
+---
+
+## 📸 Preview
+```
+![Bottle Sorting Demo](<path to image goes here>)
+```
+---
+
 ## Notes
 Grip height is 135mm from base of bottle box to base of gripper
 
 ---
-
-## To Do
-Setting positions via the gui and necessary ros2 nodes for visualisation
-Design the test setup (where the bottle are placed/held, bins to dump the bottles, how are these placed/fixed to the table/lab equipment
