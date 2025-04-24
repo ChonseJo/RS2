@@ -42,9 +42,7 @@ ros2 launch ur3_bottle_sorter ur_moveit.launch.py ur_type:=ur3e launch_rviz:=tru
 
 ### Launch the bottle sorting system
 ```bash
-ros2 launch ur3_bottle_sorter ur_moveit.launch.py ur_type:=ur3e launch_rviz:=true
-```
-
+ros2 launch bottle_sorter bottle_sorter.launch.py ur_type:=ur3e
 ---
 
 ## 🎮 Usage
