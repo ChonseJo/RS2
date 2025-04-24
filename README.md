@@ -32,7 +32,7 @@ ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3e robot_ip:=192.168
 ```
 Testing Offline
 ```bash
-ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3 robot_ip:=yyy.yyy.yyy.yyy use_fake_hardware:=true launch_rviz:=false
+ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3e robot_ip:=yyy.yyy.yyy.yyy use_fake_hardware:=true launch_rviz:=false
 ```
 
 ### Launch a custom UR3e MoveIt config in rviz
@@ -42,7 +42,7 @@ ros2 launch ur3_bottle_sorter ur_moveit.launch.py ur_type:=ur3e launch_rviz:=tru
 
 ### Launch the bottle sorting system
 ```bash
-ros2 launch bottle_sorter bottle_sorter.launch.py ur_type:=ur3e
+ros2 launch ur3_bottle_sorter bottle_sorter.launch.py ur_type:=ur3e
 ```
 
 ---
