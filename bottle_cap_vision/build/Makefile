@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /home/luis/ros2_ws/src/bottle_cap_vision/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -162,17 +172,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named cap_centroid_detector
+# Target rules for targets named uninstall
 
 # Build rule for target.
-cap_centroid_detector: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cap_centroid_detector
-.PHONY : cap_centroid_detector
+uninstall: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 uninstall
+.PHONY : uninstall
 
 # fast build rule for target.
-cap_centroid_detector/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cap_centroid_detector.dir/build.make CMakeFiles/cap_centroid_detector.dir/build
-.PHONY : cap_centroid_detector/fast
+uninstall/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/uninstall.dir/build.make CMakeFiles/uninstall.dir/build
+.PHONY : uninstall/fast
+
+#=============================================================================
+# Target rules for targets named bottle_cap_vision_uninstall
+
+# Build rule for target.
+bottle_cap_vision_uninstall: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bottle_cap_vision_uninstall
+.PHONY : bottle_cap_vision_uninstall
+
+# fast build rule for target.
+bottle_cap_vision_uninstall/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bottle_cap_vision_uninstall.dir/build.make CMakeFiles/bottle_cap_vision_uninstall.dir/build
+.PHONY : bottle_cap_vision_uninstall/fast
 
 #=============================================================================
 # Target rules for targets named hsv_click_detector
@@ -187,29 +210,81 @@ hsv_click_detector/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hsv_click_detector.dir/build.make CMakeFiles/hsv_click_detector.dir/build
 .PHONY : hsv_click_detector/fast
 
-src/cap_centroid_detector.o: src/cap_centroid_detector.cpp.o
-.PHONY : src/cap_centroid_detector.o
+#=============================================================================
+# Target rules for targets named cap_dot_representation
+
+# Build rule for target.
+cap_dot_representation: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cap_dot_representation
+.PHONY : cap_dot_representation
+
+# fast build rule for target.
+cap_dot_representation/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cap_dot_representation.dir/build.make CMakeFiles/cap_dot_representation.dir/build
+.PHONY : cap_dot_representation/fast
+
+#=============================================================================
+# Target rules for targets named realsense_capture_node
+
+# Build rule for target.
+realsense_capture_node: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 realsense_capture_node
+.PHONY : realsense_capture_node
+
+# fast build rule for target.
+realsense_capture_node/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/realsense_capture_node.dir/build.make CMakeFiles/realsense_capture_node.dir/build
+.PHONY : realsense_capture_node/fast
+
+#=============================================================================
+# Target rules for targets named image_saver_node
+
+# Build rule for target.
+image_saver_node: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 image_saver_node
+.PHONY : image_saver_node
+
+# fast build rule for target.
+image_saver_node/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/image_saver_node.dir/build.make CMakeFiles/image_saver_node.dir/build
+.PHONY : image_saver_node/fast
+
+#=============================================================================
+# Target rules for targets named test_roi
+
+# Build rule for target.
+test_roi: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_roi
+.PHONY : test_roi
+
+# fast build rule for target.
+test_roi/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_roi.dir/build.make CMakeFiles/test_roi.dir/build
+.PHONY : test_roi/fast
+
+src/cap_dot_representation.o: src/cap_dot_representation.cpp.o
+.PHONY : src/cap_dot_representation.o
 
 # target to build an object file
-src/cap_centroid_detector.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cap_centroid_detector.dir/build.make CMakeFiles/cap_centroid_detector.dir/src/cap_centroid_detector.cpp.o
-.PHONY : src/cap_centroid_detector.cpp.o
+src/cap_dot_representation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cap_dot_representation.dir/build.make CMakeFiles/cap_dot_representation.dir/src/cap_dot_representation.cpp.o
+.PHONY : src/cap_dot_representation.cpp.o
 
-src/cap_centroid_detector.i: src/cap_centroid_detector.cpp.i
-.PHONY : src/cap_centroid_detector.i
+src/cap_dot_representation.i: src/cap_dot_representation.cpp.i
+.PHONY : src/cap_dot_representation.i
 
 # target to preprocess a source file
-src/cap_centroid_detector.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cap_centroid_detector.dir/build.make CMakeFiles/cap_centroid_detector.dir/src/cap_centroid_detector.cpp.i
-.PHONY : src/cap_centroid_detector.cpp.i
+src/cap_dot_representation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cap_dot_representation.dir/build.make CMakeFiles/cap_dot_representation.dir/src/cap_dot_representation.cpp.i
+.PHONY : src/cap_dot_representation.cpp.i
 
-src/cap_centroid_detector.s: src/cap_centroid_detector.cpp.s
-.PHONY : src/cap_centroid_detector.s
+src/cap_dot_representation.s: src/cap_dot_representation.cpp.s
+.PHONY : src/cap_dot_representation.s
 
 # target to generate assembly for a file
-src/cap_centroid_detector.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cap_centroid_detector.dir/build.make CMakeFiles/cap_centroid_detector.dir/src/cap_centroid_detector.cpp.s
-.PHONY : src/cap_centroid_detector.cpp.s
+src/cap_dot_representation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cap_dot_representation.dir/build.make CMakeFiles/cap_dot_representation.dir/src/cap_dot_representation.cpp.s
+.PHONY : src/cap_dot_representation.cpp.s
 
 src/hsv_click_detector.o: src/hsv_click_detector.cpp.o
 .PHONY : src/hsv_click_detector.o
@@ -235,6 +310,78 @@ src/hsv_click_detector.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hsv_click_detector.dir/build.make CMakeFiles/hsv_click_detector.dir/src/hsv_click_detector.cpp.s
 .PHONY : src/hsv_click_detector.cpp.s
 
+src/image_saver_node.o: src/image_saver_node.cpp.o
+.PHONY : src/image_saver_node.o
+
+# target to build an object file
+src/image_saver_node.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/image_saver_node.dir/build.make CMakeFiles/image_saver_node.dir/src/image_saver_node.cpp.o
+.PHONY : src/image_saver_node.cpp.o
+
+src/image_saver_node.i: src/image_saver_node.cpp.i
+.PHONY : src/image_saver_node.i
+
+# target to preprocess a source file
+src/image_saver_node.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/image_saver_node.dir/build.make CMakeFiles/image_saver_node.dir/src/image_saver_node.cpp.i
+.PHONY : src/image_saver_node.cpp.i
+
+src/image_saver_node.s: src/image_saver_node.cpp.s
+.PHONY : src/image_saver_node.s
+
+# target to generate assembly for a file
+src/image_saver_node.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/image_saver_node.dir/build.make CMakeFiles/image_saver_node.dir/src/image_saver_node.cpp.s
+.PHONY : src/image_saver_node.cpp.s
+
+src/realsense_capture_node.o: src/realsense_capture_node.cpp.o
+.PHONY : src/realsense_capture_node.o
+
+# target to build an object file
+src/realsense_capture_node.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/realsense_capture_node.dir/build.make CMakeFiles/realsense_capture_node.dir/src/realsense_capture_node.cpp.o
+.PHONY : src/realsense_capture_node.cpp.o
+
+src/realsense_capture_node.i: src/realsense_capture_node.cpp.i
+.PHONY : src/realsense_capture_node.i
+
+# target to preprocess a source file
+src/realsense_capture_node.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/realsense_capture_node.dir/build.make CMakeFiles/realsense_capture_node.dir/src/realsense_capture_node.cpp.i
+.PHONY : src/realsense_capture_node.cpp.i
+
+src/realsense_capture_node.s: src/realsense_capture_node.cpp.s
+.PHONY : src/realsense_capture_node.s
+
+# target to generate assembly for a file
+src/realsense_capture_node.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/realsense_capture_node.dir/build.make CMakeFiles/realsense_capture_node.dir/src/realsense_capture_node.cpp.s
+.PHONY : src/realsense_capture_node.cpp.s
+
+src/test_roi.o: src/test_roi.cpp.o
+.PHONY : src/test_roi.o
+
+# target to build an object file
+src/test_roi.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_roi.dir/build.make CMakeFiles/test_roi.dir/src/test_roi.cpp.o
+.PHONY : src/test_roi.cpp.o
+
+src/test_roi.i: src/test_roi.cpp.i
+.PHONY : src/test_roi.i
+
+# target to preprocess a source file
+src/test_roi.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_roi.dir/build.make CMakeFiles/test_roi.dir/src/test_roi.cpp.i
+.PHONY : src/test_roi.cpp.i
+
+src/test_roi.s: src/test_roi.cpp.s
+.PHONY : src/test_roi.s
+
+# target to generate assembly for a file
+src/test_roi.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_roi.dir/build.make CMakeFiles/test_roi.dir/src/test_roi.cpp.s
+.PHONY : src/test_roi.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -247,14 +394,29 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... cap_centroid_detector"
+	@echo "... test"
+	@echo "... bottle_cap_vision_uninstall"
+	@echo "... uninstall"
+	@echo "... cap_dot_representation"
 	@echo "... hsv_click_detector"
-	@echo "... src/cap_centroid_detector.o"
-	@echo "... src/cap_centroid_detector.i"
-	@echo "... src/cap_centroid_detector.s"
+	@echo "... image_saver_node"
+	@echo "... realsense_capture_node"
+	@echo "... test_roi"
+	@echo "... src/cap_dot_representation.o"
+	@echo "... src/cap_dot_representation.i"
+	@echo "... src/cap_dot_representation.s"
 	@echo "... src/hsv_click_detector.o"
 	@echo "... src/hsv_click_detector.i"
 	@echo "... src/hsv_click_detector.s"
+	@echo "... src/image_saver_node.o"
+	@echo "... src/image_saver_node.i"
+	@echo "... src/image_saver_node.s"
+	@echo "... src/realsense_capture_node.o"
+	@echo "... src/realsense_capture_node.i"
+	@echo "... src/realsense_capture_node.s"
+	@echo "... src/test_roi.o"
+	@echo "... src/test_roi.i"
+	@echo "... src/test_roi.s"
 .PHONY : help
 
 
