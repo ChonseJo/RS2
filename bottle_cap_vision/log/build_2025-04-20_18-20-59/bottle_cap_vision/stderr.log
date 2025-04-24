@@ -1,0 +1,15 @@
+[01m[K/home/luis/ros2_ws/src/bottle_cap_vision/src/realsense_capture_node.cpp:91:10:[m[K [01;31m[Kerror: [m[K‘[01m[Kvoid RealSenseCaptureNode::image_callback(sensor_msgs::msg::Image_<std::allocator<void> >::SharedPtr)[m[K’ cannot be overloaded with ‘[01m[Kvoid RealSenseCaptureNode::image_callback(sensor_msgs::msg::Image_<std::allocator<void> >::SharedPtr)[m[K’
+   91 |     void [01;31m[Kimage_callback[m[K(const sensor_msgs::msg::Image::SharedPtr msg) {
+      |          [01;31m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/luis/ros2_ws/src/bottle_cap_vision/src/realsense_capture_node.cpp:78:10:[m[K [01;36m[Knote: [m[Kprevious declaration ‘[01m[Kvoid RealSenseCaptureNode::image_callback(sensor_msgs::msg::Image_<std::allocator<void> >::SharedPtr)[m[K’
+   78 |     void [01;36m[Kimage_callback[m[K(const sensor_msgs::msg::Image::SharedPtr msg) {
+      |          [01;36m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/luis/ros2_ws/src/bottle_cap_vision/src/realsense_capture_node.cpp:208:62:[m[K [01;31m[Kerror: [m[Kredeclaration of ‘[01m[Krclcpp::Subscription<sensor_msgs::msg::Image_<std::allocator<void> > >::SharedPtr RealSenseCaptureNode::subscription_[m[K’
+  208 |     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr [01;31m[Ksubscription_[m[K;
+      |                                                              [01;31m[K^~~~~~~~~~~~~[m[K
+[01m[K/home/luis/ros2_ws/src/bottle_cap_vision/src/realsense_capture_node.cpp:76:62:[m[K [01;36m[Knote: [m[Kprevious declaration ‘[01m[Krclcpp::Subscription<sensor_msgs::msg::Image_<std::allocator<void> > >::SharedPtr RealSenseCaptureNode::subscription_[m[K’
+   76 |     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr [01;36m[Ksubscription_[m[K;
+      |                                                              [01;36m[K^~~~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/realsense_capture_node.dir/build.make:76: CMakeFiles/realsense_capture_node.dir/src/realsense_capture_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:195: CMakeFiles/realsense_capture_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -1,0 +1,4 @@
+source;share/bottle_cap_vision/local_setup.bash
+source;share/bottle_cap_vision/local_setup.dsv
+source;share/bottle_cap_vision/local_setup.sh
+source;share/bottle_cap_vision/local_setup.zsh

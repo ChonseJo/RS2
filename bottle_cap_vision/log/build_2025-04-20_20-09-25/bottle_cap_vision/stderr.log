@@ -1,0 +1,10 @@
+[01m[K/home/luis/ros2_ws/src/bottle_cap_vision/src/realsense_capture_node.cpp:[m[K In member function ‘[01m[Kvoid RealSenseCaptureNode::processImage(const cv::Mat&)[m[K’:
+[01m[K/home/luis/ros2_ws/src/bottle_cap_vision/src/realsense_capture_node.cpp:112:17:[m[K [01;31m[Kerror: [m[Kredeclaration of ‘[01m[Kcv::Mat red_mask[m[K’
+  112 |         cv::Mat [01;31m[Kred_mask[m[K;
+      |                 [01;31m[K^~~~~~~~[m[K
+[01m[K/home/luis/ros2_ws/src/bottle_cap_vision/src/realsense_capture_node.cpp:107:39:[m[K [01;36m[Knote: [m[K‘[01m[Kcv::Mat red_mask[m[K’ previously declared here
+  107 |         cv::Mat red_mask1, red_mask2, [01;36m[Kred_mask[m[K;
+      |                                       [01;36m[K^~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/realsense_capture_node.dir/build.make:76: CMakeFiles/realsense_capture_node.dir/src/realsense_capture_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:195: CMakeFiles/realsense_capture_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -25,7 +25,7 @@ void onMouse(int event, int x, int y, int flags, void* userdata)
 int main()
 {
     // Load the image using an absolute path
-    image = cv::imread("/home/luis/ros2_ws/src/bottle_cap_vision/test_images/test_bottle.jpeg");
+    image = cv::imread("/home/luis/ros2_ws/src/bottle_cap_vision/test_images/captured_image_3.jpg");
     if (image.empty()) {
         std::cerr << "Error: Could not load image." << std::endl;
         return -1;
