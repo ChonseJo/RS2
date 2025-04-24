@@ -18,13 +18,16 @@
 #include <thread>
 #include <mutex>
 #include <cmath> // for M_PI
+#include "std_srvs/srv/set_bool.hpp"
 
 using namespace std::chrono_literals;
 
 class PathPlanning : public rclcpp::Node
 {
 public:
-  PathPlanning() : Node("path_planning"){    
+  PathPlanning() : Node("path_planning"){   
+    run_state_ = false;
+    call_home_ = false;
   }
 
   ~PathPlanning(){
@@ -72,8 +75,6 @@ public:
 
   void setJointPose(double x, double y, double z, double roll, double pitch, double yaw)
   {
-    // getCurrentState and getCurrentPose dont work???
-    // moveit::core::RobotState start_state(*move_group_interface_->getCurrentState());
     // Set a target Pose
     geometry_msgs::msg::Pose target_pose;
     target_pose.position.x = x;
@@ -85,12 +86,9 @@ public:
     target_pose.orientation.y = q.y();
     target_pose.orientation.z = q.z();
     target_pose.orientation.w = q.w();
-    // start_state.setFromIK(joint_model_group_, target_pose);
-    // move_group_interface_->setStartState(start_state);
     move_group_interface_->setPoseTarget(target_pose);
 
     // Plan the motion
-    // move_group_interface_->setPlanningTime(10.0); // default is 5 seconds
     moveit::planning_interface::MoveGroupInterface::Plan plan;
     bool success = (move_group_interface_->plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
 
@@ -103,8 +101,8 @@ public:
     }
   }
 
-  void setCartPose(double x, double y, double z, double roll, double pitch, double yaw){
-    auto current_pose_ = move_group_interface_->getCurrentPose().pose;
+  void setCartPose(double x, double y, double z){
+    auto current_pose = move_group_interface_->getCurrentPose().pose;
     
     // Set a target Pose
     geometry_msgs::msg::Pose target_pose;
@@ -112,20 +110,18 @@ public:
     target_pose.position.y = y;
     target_pose.position.z = z;
 
-    // Set the target orientation (Quaternion) from roll, pitch, yaw
-    tf2::Quaternion q;
-    q.setRPY(roll, pitch, yaw);
-    target_pose.orientation.x = q.x();
-    target_pose.orientation.y = q.y();
-    target_pose.orientation.z = q.z();
-    target_pose.orientation.w = q.w();
+    // Set the target orientation (Quaternion)
+    target_pose.orientation.x = current_pose.orientation.x;
+    target_pose.orientation.y = current_pose.orientation.y;
+    target_pose.orientation.z = current_pose.orientation.z;
+    target_pose.orientation.w = current_pose.orientation.w;
 
     // Set the pose target for MoveGroup
     move_group_interface_->setPoseTarget(target_pose);
     
     // Define waypoints for the Cartesian path
     std::vector<geometry_msgs::msg::Pose> waypoints;
-    waypoints.push_back(current_pose_);  // start at current pose
+    waypoints.push_back(current_pose);  // start at current pose
     waypoints.push_back(target_pose);   // move to target pose
 
     // Compute the Cartesian path (with a resolution of 1 cm, feel free to adjust it)
@@ -215,9 +211,50 @@ public:
     planning_scene_interface.applyCollisionObject(collision_object);
   }
 
+  void init_services(){
+    toggle_run_service_ = this->create_service<std_srvs::srv::SetBool>(
+      "toggle_run",
+      std::bind(&PathPlanning::handle_toggle_run, this, std::placeholders::_1, std::placeholders::_2)
+    );
+
+    call_home_service_ = this->create_service<std_srvs::srv::SetBool>(
+      "call_home",
+      std::bind(&PathPlanning::handle_call_home, this, std::placeholders::_1, std::placeholders::_2)
+    );
+  }
+
+  void handle_toggle_run(
+      const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
+      std::shared_ptr<std_srvs::srv::SetBool::Response> response)
+  {
+      run_state_ = !run_state_;
+      response->success = true;
+      response->message = run_state_ ? "Run state enabled." : "Run state disabled.";
+  }
+
+  void handle_call_home(
+    const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
+    std::shared_ptr<std_srvs::srv::SetBool::Response> response)
+  {
+      call_home_ = request->data;
+      response->success = true;
+      response->message = call_home_ ? "Calling Home Position" : "";
+
+      setJointGoal(0, -90, 0, -90, 0, 0);
+  }
+
+  bool getRunState(){
+    return run_state_;
+  }
+
+  void resetRunState(){
+    run_state_ = false;
+  }
+
 private:
   moveit::planning_interface::MoveGroupInterface* move_group_interface_;
-  moveit::planning_interface::PlanningSceneInterface planning_scene_interface_;
-  moveit::core::JointModelGroup* joint_model_group_;
-
+  rclcpp::Service<std_srvs::srv::SetBool>::SharedPtr toggle_run_service_;
+  rclcpp::Service<std_srvs::srv::SetBool>::SharedPtr call_home_service_;
+  bool run_state_;
+  bool call_home_;
 };

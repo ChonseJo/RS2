@@ -43,37 +43,46 @@ int main(int argc, char * argv[])
     // ======================================================================
 	// project code starts here
     // ======================================================================
-	auto ee_pose = move_group_interface.getCurrentPose();
-    // Log the current end-effector pose
-    RCLCPP_INFO(logger, "End-effector pose: %f %f %f",
-		ee_pose.pose.position.x,
-      	ee_pose.pose.position.y,
-      	ee_pose.pose.position.z
-    );
+	// path_planner->setJointGoal(0, -90, 0, -90, 0, 0); // home position
 
-	double roll = 0.0;
-	double pitch = 3.14;
-	double yaw = 0.0;
+	path_planner->init_services();
 
-	double x = 0.05;
-	double y = 0.05;
-	double z = 0.05;
+	if(path_planner->getRunState() == false){
+		RCLCPP_INFO(logger, "Waiting on Run Command...");
+	}
 
-	path_planner->setJointGoal(0, -90, 0, -90, 0, 0); // home position
-	path_planner->setJointGoal(90, -90, 90, -90, -90, 0); // starting position
-	// path_planner->setJointPose(0.3, 0.0, 0.35, roll, pitch, yaw);
+	while(rclcpp::ok()){
+		// Run Command
+		if(path_planner->getRunState()){
 
-	// // used to make sure the robot is facing straight down
-	// ee_pose = move_group_interface.getCurrentPose();
-	// path_planner->setCartPose(	ee_pose.pose.position.x,
-	// 							ee_pose.pose.position.y,
-	// 							ee_pose.pose.position.z,
-	// 							roll, pitch, yaw);
+			path_planner->setJointGoal(90, -90, 90, -90, -90, 0); // starting position
 
-	path_planner->cartesianIncrement(x, 0, 0);
-	path_planner->cartesianIncrement(0, y, 0);
-	path_planner->cartesianIncrement(-x, 0, 0);
-	path_planner->cartesianIncrement(0, -y, 0);
+			auto ee_pose = move_group_interface.getCurrentPose();
+			path_planner->setCartPose(ee_pose.pose.position.x, ee_pose.pose.position.y, ee_pose.pose.position.z-0.05);
+			// pickup bottles
+
+			path_planner->setCartPose(ee_pose.pose.position.x, ee_pose.pose.position.y,ee_pose.pose.position.z);
+			
+			// *** go to bin position *** 		
+			path_planner->setCartPose(0.2,0.3,ee_pose.pose.position.z);
+			// drop bottles
+			rclcpp::sleep_for(std::chrono::milliseconds(1000)); 
+
+			path_planner->setCartPose(0.2,0.15,ee_pose.pose.position.z);
+			// drop bottles
+			rclcpp::sleep_for(std::chrono::milliseconds(1000)); 
+			
+			path_planner->setCartPose(0.2,0,ee_pose.pose.position.z);
+			// drop bottles
+			rclcpp::sleep_for(std::chrono::milliseconds(1000)); 
+
+			// go home
+			path_planner->setJointGoal(90, -90, 90, -90, -90, 0); // starting position
+
+			// path_planner->setCartPose(ee_pose.position.x, ee_pose.position.y, ee_pose.position.z-0.2);
+			path_planner->resetRunState();
+		}
+	}
 
 	// Shutdown ROS
 	while(rclcpp::ok()){
