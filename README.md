@@ -56,6 +56,16 @@ Once launched:
 - The robot executes the move using MoveIt.
 - The servo_controller communicates with the Arduino to actuate the gripper.
 
+### Calling Home Position
+```bash
+ros2 service call /call_home std_srvs/srv/SetBool "{data: true}"
+```
+
+### Enabling Run Command
+```bash
+ros2 service call /toggle_run std_srvs/srv/SetBool "{data: true}"
+```
+
 ---
 
 ## 📸 Preview
