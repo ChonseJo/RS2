@@ -224,7 +224,7 @@ public:
   }
 
   void handle_toggle_run(
-      const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
+      const std::shared_ptr<std_srvs::srv::SetBool::Request> ,
       std::shared_ptr<std_srvs::srv::SetBool::Response> response)
   {
       run_state_ = !run_state_;
@@ -238,7 +238,7 @@ public:
   {
       call_home_ = request->data;
       response->success = true;
-      response->message = call_home_ ? "Calling Home Position" : "";
+      response->message = call_home_ ? "Calling Home Position" : "Calling Home Position";
 
       setJointGoal(0, -90, 0, -90, 0, 0);
   }

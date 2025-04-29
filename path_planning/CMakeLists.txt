@@ -25,6 +25,8 @@ install(DIRECTORY include/meshes
 
 # Create pathplanning library
 add_library(path_planning src/path_planning.cpp)
+add_library(servo_control src/servo_control.cpp)
+
 
 add_executable(bottle_sorter src/main.cpp)
 
@@ -33,6 +35,7 @@ target_link_libraries(bottle_sorter
   ${tf2_LIBRARIES}
   ${tf2_ros_LIBRARIES}
   path_planning
+  servo_control
 )
 
 # Include directories for the executable and library
@@ -52,14 +55,18 @@ ament_target_dependencies(path_planning
   moveit_visual_tools 
   tf2_ros 
   tf2
-  )
+)
 ament_target_dependencies(bottle_sorter 
   rclcpp 
   moveit_ros_planning_interface 
   moveit_visual_tools 
   tf2_ros 
   tf2
-  )
+)
+ament_target_dependencies(servo_control
+  rclcpp 
+  std_msgs
+)
 
 # Install the executable
 install(TARGETS bottle_sorter
