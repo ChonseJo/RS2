@@ -103,16 +103,16 @@ private:
         //             tune_mask);
         // cv::imshow("tuners", tune_mask);
 
+        cv::Mat red_mask, green_mask, blue_mask;
         cv::Mat r1, r2;
-        cv::inRange(hsv, cv::Scalar(0,200,100), cv::Scalar(10, 255, 180), r1);
-        cv::inRange(hsv, cv::Scalar(170,200,50), cv::Scalar(180,255,180), r2);
-        cv::Mat red_mask = r1 | r2;
+        cv::inRange(hsv, cv::Scalar(  0, 100, 170), cv::Scalar( 47, 255, 255), r1);
+        cv::inRange(hsv, cv::Scalar(170, 100, 170), cv::Scalar(180, 255, 255), r2);
+        red_mask = r1 | r2;
 
+        // cv::Mat green_mask;
+        cv::inRange(hsv, cv::Scalar(35, 90, 80), cv::Scalar(85, 255, 255), green_mask);
 
-        cv::Mat green_mask;
-        cv::inRange(hsv, cv::Scalar(35, 50, 50), cv::Scalar(85, 255, 255), green_mask);
-
-        cv::Mat blue_mask;
+        // cv::Mat blue_mask;
         cv::inRange(hsv, cv::Scalar(105, 150, 50), cv::Scalar(125, 255, 255), blue_mask);
 
         // Debug view
