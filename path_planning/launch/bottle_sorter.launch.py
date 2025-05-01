@@ -194,14 +194,14 @@ def launch_setup(context, *args, **kwargs):
         ],
     )
 
-    # servo_node = Node(
-    #     package="servo_controller",
-    #     executable="servo_serial_node",
-    #     name="servo_serial_node",
-    #     output="screen"
-    # )
+    servo_node = Node(
+        package="servo_controller",
+        executable="servo_serial_node",
+        # name="servo_serial_node",
+        output="screen"
+    )
     
-    nodes_to_start = [bottle_sorter_node]
+    nodes_to_start = [bottle_sorter_node, servo_node]
 
     return nodes_to_start
 
