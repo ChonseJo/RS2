@@ -45,6 +45,10 @@ ros2 launch ur3_bottle_sorter ur_moveit.launch.py ur_type:=ur3e launch_rviz:=tru
 ros2 launch ur3_bottle_sorter bottle_sorter.launch.py ur_type:=ur3e
 ```
 
+### Launch the Servo Controller
+```bash
+ros2 run servo_controller servo_serial_node
+```
 ---
 
 ## 🎮 Usage
