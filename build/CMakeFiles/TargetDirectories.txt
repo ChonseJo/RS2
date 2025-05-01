@@ -1,0 +1,12 @@
+/home/christian/ros2_ws/src/RS2/build/CMakeFiles/uninstall.dir
+/home/christian/ros2_ws/src/RS2/build/CMakeFiles/ur3_bottle_sorter_uninstall.dir
+/home/christian/ros2_ws/src/RS2/build/CMakeFiles/path_planning.dir
+/home/christian/ros2_ws/src/RS2/build/CMakeFiles/servo_control.dir
+/home/christian/ros2_ws/src/RS2/build/CMakeFiles/bottle_sorter.dir
+/home/christian/ros2_ws/src/RS2/build/CMakeFiles/test.dir
+/home/christian/ros2_ws/src/RS2/build/CMakeFiles/edit_cache.dir
+/home/christian/ros2_ws/src/RS2/build/CMakeFiles/rebuild_cache.dir
+/home/christian/ros2_ws/src/RS2/build/CMakeFiles/list_install_components.dir
+/home/christian/ros2_ws/src/RS2/build/CMakeFiles/install.dir
+/home/christian/ros2_ws/src/RS2/build/CMakeFiles/install/local.dir
+/home/christian/ros2_ws/src/RS2/build/CMakeFiles/install/strip.dir

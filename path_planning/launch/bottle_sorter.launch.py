@@ -14,7 +14,6 @@ from launch.substitutions import (
     PathJoinSubstitution,
 )
 
-
 def launch_setup(context, *args, **kwargs):
 
     # Initialize Arguments
@@ -194,6 +193,13 @@ def launch_setup(context, *args, **kwargs):
             warehouse_ros_config,
         ],
     )
+
+    # servo_node = Node(
+    #     package="servo_controller",
+    #     executable="servo_serial_node",
+    #     name="servo_serial_node",
+    #     output="screen"
+    # )
     
     nodes_to_start = [bottle_sorter_node]
 
@@ -241,6 +247,7 @@ def generate_launch_description():
             "is not set, it enables use of a custom description.",
         )
     )
+
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_file",

@@ -27,7 +27,6 @@ class PathPlanning : public rclcpp::Node
 public:
   PathPlanning() : Node("path_planning"){   
     run_state_ = false;
-    call_home_ = false;
   }
 
   ~PathPlanning(){
@@ -40,6 +39,7 @@ public:
     move_group_interface_->setPlanningTime(5.0);
     move_group_interface_->setGoalTolerance(0.01);
     move_group_interface_->setStartStateToCurrentState();
+    init_services();
   }
 
   double degToRad(double deg)
@@ -73,19 +73,21 @@ public:
     return;
   }
 
-  void setJointPose(double x, double y, double z, double roll, double pitch, double yaw)
+  void setJointPose(double x, double y, double z)
   {
+    auto current_pose = move_group_interface_->getCurrentPose().pose;
+    
     // Set a target Pose
     geometry_msgs::msg::Pose target_pose;
     target_pose.position.x = x;
     target_pose.position.y = y;
     target_pose.position.z = z;
-    tf2::Quaternion q;
-    q.setRPY(roll, pitch, yaw);
-    target_pose.orientation.x = q.x();
-    target_pose.orientation.y = q.y();
-    target_pose.orientation.z = q.z();
-    target_pose.orientation.w = q.w();
+    
+    // Set the target orientation (Quaternion)
+    target_pose.orientation.x = current_pose.orientation.x;
+    target_pose.orientation.y = current_pose.orientation.y;
+    target_pose.orientation.z = current_pose.orientation.z;
+    target_pose.orientation.w = current_pose.orientation.w;
     move_group_interface_->setPoseTarget(target_pose);
 
     // Plan the motion
@@ -221,26 +223,29 @@ public:
       "call_home",
       std::bind(&PathPlanning::handle_call_home, this, std::placeholders::_1, std::placeholders::_2)
     );
-  }
 
-  void handle_toggle_run(
-      const std::shared_ptr<std_srvs::srv::SetBool::Request> ,
-      std::shared_ptr<std_srvs::srv::SetBool::Response> response)
-  {
-      run_state_ = !run_state_;
-      response->success = true;
-      response->message = run_state_ ? "Run state enabled." : "Run state disabled.";
+
   }
 
   void handle_call_home(
     const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
     std::shared_ptr<std_srvs::srv::SetBool::Response> response)
   {
-      call_home_ = request->data;
-      response->success = true;
-      response->message = call_home_ ? "Calling Home Position" : "Calling Home Position";
+    (void)request;
+    response->success = true;
+    response->message = "Calling Home Position";
 
-      setJointGoal(0, -90, 0, -90, 0, 0);
+    setJointGoal(0, -90, 0, -90, 0, 0);
+  }
+
+  void handle_toggle_run(
+    const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
+    std::shared_ptr<std_srvs::srv::SetBool::Response> response)
+  { 
+    (void)request;
+    run_state_ = !run_state_;
+    response->success = true;
+    response->message = run_state_ ? "Run state enabled." : "Run state disabled.";
   }
 
   bool getRunState(){
@@ -256,5 +261,4 @@ private:
   rclcpp::Service<std_srvs::srv::SetBool>::SharedPtr toggle_run_service_;
   rclcpp::Service<std_srvs::srv::SetBool>::SharedPtr call_home_service_;
   bool run_state_;
-  bool call_home_;
 };

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libservo_control.a CMakeFiles/servo_control.dir/src/servo_control.cpp.o
+/usr/bin/ranlib libservo_control.a
