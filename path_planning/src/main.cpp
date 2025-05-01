@@ -70,21 +70,27 @@ int main(int argc, char * argv[])
 	double b3_x = 0.2;
 	double b3_y = 0.0;
 
+	RCLCPP_INFO(logger, "Testing Servos...");
 	rclcpp::sleep_for(std::chrono::milliseconds(10000)); 
 	servo_control->open_servos({1,1,1,1,1,1});
-	rclcpp::sleep_for(std::chrono::milliseconds(1000)); 
+	rclcpp::sleep_for(std::chrono::milliseconds(5000)); 
 	servo_control->open_servos({0,0,0,0,0,0});
 
 	while(rclcpp::ok()){
 		// Run Command
-		auto ee_pose = move_group_interface.getCurrentPose();
-			RCLCPP_INFO(logger, "Current Position:\n x = %f, y = %f, z = %f",
-				ee_pose.pose.position.x, ee_pose.pose.position.y, ee_pose.pose.position.z);
+		// auto ee_pose = move_group_interface.getCurrentPose();
+		// 	RCLCPP_INFO(logger, "Current Position:\n x = %f, y = %f, z = %f",
+		// 		ee_pose.pose.position.x, ee_pose.pose.position.y, ee_pose.pose.position.z);
 		
 
 		if(path_planner->getRunState()){
 
 			path_planner->setJointGoal(60, -100, 50, -30, -95, -30); // starting position
+			rclcpp::sleep_for(std::chrono::milliseconds(1000)); 
+			// take picture
+
+			path_planner->setJointGoal(57.09, -106.79, 58.73, -42.02, -89.86, 326.33); // starting position
+
 
 			path_planner->setCartPose(pickup_x, pickup_y, pickup_z_approach);
 
