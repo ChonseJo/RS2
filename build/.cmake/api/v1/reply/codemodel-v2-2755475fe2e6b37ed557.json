@@ -1,0 +1,97 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-a5a0a4fa1a040e4c9ebf.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ur3_bottle_sorter",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "bottle_sorter::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-bottle_sorter-Debug-e3b58ab5437a9d483ae8.json",
+					"name" : "bottle_sorter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "path_planning::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-path_planning-Debug-55f239cdb4ec382c3b2d.json",
+					"name" : "path_planning",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "servo_control::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-servo_control-Debug-c18080694ce291220005.json",
+					"name" : "servo_control",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Debug-81c4b41a8a7b04755b57.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ur3_bottle_sorter_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ur3_bottle_sorter_uninstall-Debug-79c70441ab75b83feac4.json",
+					"name" : "ur3_bottle_sorter_uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/christian/ros2_ws/src/RS2/build",
+		"source" : "/home/christian/ros2_ws/src/RS2/path_planning"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}
