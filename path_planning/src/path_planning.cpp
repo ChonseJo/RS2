@@ -27,7 +27,6 @@ class PathPlanning : public rclcpp::Node
 public:
   PathPlanning() : Node("path_planning"){   
     run_state_ = false;
-    call_home_ = false;
   }
 
   ~PathPlanning(){
@@ -40,6 +39,7 @@ public:
     move_group_interface_->setPlanningTime(5.0);
     move_group_interface_->setGoalTolerance(0.01);
     move_group_interface_->setStartStateToCurrentState();
+    init_services();
   }
 
   double degToRad(double deg)
@@ -74,18 +74,21 @@ public:
   }
 
   void setJointPose(double x, double y, double z, double roll, double pitch, double yaw)
-  {
+  {    
     // Set a target Pose
     geometry_msgs::msg::Pose target_pose;
     target_pose.position.x = x;
     target_pose.position.y = y;
     target_pose.position.z = z;
+    
+    // Set the target orientation (Quaternion) from roll, pitch, yaw
     tf2::Quaternion q;
     q.setRPY(roll, pitch, yaw);
     target_pose.orientation.x = q.x();
     target_pose.orientation.y = q.y();
     target_pose.orientation.z = q.z();
     target_pose.orientation.w = q.w();
+
     move_group_interface_->setPoseTarget(target_pose);
 
     // Plan the motion
@@ -98,6 +101,48 @@ public:
     }
     else{
       RCLCPP_ERROR(this->get_logger(), "Planning failed");
+    }
+  }
+
+  void setCartPoseOrientation(double x, double y, double z, double roll, double pitch, double yaw){
+    auto current_pose = move_group_interface_->getCurrentPose().pose;
+    
+    // Set a target Pose
+    geometry_msgs::msg::Pose target_pose;
+    target_pose.position.x = x;
+    target_pose.position.y = y;
+    target_pose.position.z = z;
+
+    // Set the target orientation (Quaternion) from roll, pitch, yaw
+    tf2::Quaternion q;
+    q.setRPY(roll, pitch, yaw);
+    target_pose.orientation.x = q.x();
+    target_pose.orientation.y = q.y();
+    target_pose.orientation.z = q.z();
+    target_pose.orientation.w = q.w();
+
+    // Set the pose target for MoveGroup
+    move_group_interface_->setPoseTarget(target_pose);
+    
+    // Define waypoints for the Cartesian path
+    std::vector<geometry_msgs::msg::Pose> waypoints;
+    waypoints.push_back(current_pose);  // start at current pose
+    waypoints.push_back(target_pose);   // move to target pose
+
+    // Compute the Cartesian path (with a resolution of 1 cm, feel free to adjust it)
+    const double eef_step = 0.01;
+    moveit_msgs::msg::RobotTrajectory trajectory;
+    double fraction = move_group_interface_->computeCartesianPath(waypoints, eef_step, 0.0, trajectory);
+
+    RCLCPP_INFO(this->get_logger(), "Cartesian path computed with %.2f%% success", fraction * 100.0);
+
+    // Execute the path if successful
+    if (fraction > 0.9) {
+        RCLCPP_INFO(this->get_logger(), "Executing Cartesian path...");
+        move_group_interface_->execute(trajectory);
+    }
+    else {
+        RCLCPP_ERROR(this->get_logger(), "Cartesian path planning failed with %.2f%% success", fraction * 100.0);
     }
   }
 
@@ -221,26 +266,29 @@ public:
       "call_home",
       std::bind(&PathPlanning::handle_call_home, this, std::placeholders::_1, std::placeholders::_2)
     );
-  }
 
-  void handle_toggle_run(
-      const std::shared_ptr<std_srvs::srv::SetBool::Request> ,
-      std::shared_ptr<std_srvs::srv::SetBool::Response> response)
-  {
-      run_state_ = !run_state_;
-      response->success = true;
-      response->message = run_state_ ? "Run state enabled." : "Run state disabled.";
+
   }
 
   void handle_call_home(
     const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
     std::shared_ptr<std_srvs::srv::SetBool::Response> response)
   {
-      call_home_ = request->data;
-      response->success = true;
-      response->message = call_home_ ? "Calling Home Position" : "Calling Home Position";
+    (void)request;
+    response->success = true;
+    response->message = "Calling Home Position";
 
-      setJointGoal(0, -90, 0, -90, 0, 0);
+    setJointGoal(0, -90, 0, -90, 0, 0);
+  }
+
+  void handle_toggle_run(
+    const std::shared_ptr<std_srvs::srv::SetBool::Request> request,
+    std::shared_ptr<std_srvs::srv::SetBool::Response> response)
+  { 
+    (void)request;
+    run_state_ = !run_state_;
+    response->success = true;
+    response->message = run_state_ ? "Run state enabled." : "Run state disabled.";
   }
 
   bool getRunState(){
@@ -256,5 +304,4 @@ private:
   rclcpp::Service<std_srvs::srv::SetBool>::SharedPtr toggle_run_service_;
   rclcpp::Service<std_srvs::srv::SetBool>::SharedPtr call_home_service_;
   bool run_state_;
-  bool call_home_;
 };
