@@ -52,12 +52,17 @@ int main(int argc, char * argv[])
 	// project code starts here
     // ======================================================================
 
-	path_planner->init_services();
 
 	if(path_planner->getRunState() == false){
 		RCLCPP_INFO(logger, "Waiting on Run Command...");
 	}
 
+	double pickup_x = -0.05;
+	double pickup_y = 0.22;
+	double pickup_z = 0.214;
+	double pickup_z_approach = 0.35;
+
+	double bin_clear_z = 0.4;
 	double b1_x = 0.2;
 	double b1_y = 0.3;
 	double b2_x = 0.2;
@@ -65,38 +70,55 @@ int main(int argc, char * argv[])
 	double b3_x = 0.2;
 	double b3_y = 0.0;
 
+	RCLCPP_INFO(logger, "Testing Servos...");
+	rclcpp::sleep_for(std::chrono::milliseconds(10000)); 
+	servo_control->open_servos({1,1,1,1,1,1});
+	rclcpp::sleep_for(std::chrono::milliseconds(5000)); 
+	servo_control->open_servos({0,0,0,0,0,0});
+
 	while(rclcpp::ok()){
 		// Run Command
+		// auto ee_pose = move_group_interface.getCurrentPose();
+		// 	RCLCPP_INFO(logger, "Current Position:\n x = %f, y = %f, z = %f",
+		// 		ee_pose.pose.position.x, ee_pose.pose.position.y, ee_pose.pose.position.z);
+		
+
 		if(path_planner->getRunState()){
 
-			path_planner->setJointGoal(90, -90, 90, -90, -90, 0); // starting position
+			path_planner->setJointGoal(60, -100, 50, -30, -95, -30); // starting position
+			rclcpp::sleep_for(std::chrono::milliseconds(1000)); 
+			// take picture
 
-			auto ee_pose = move_group_interface.getCurrentPose();
-			auto home_x = ee_pose.pose.position.x;
-			auto home_y = ee_pose.pose.position.y;
-			auto home_z = ee_pose.pose.position.z;
+			path_planner->setJointGoal(57.09, -106.79, 58.73, -42.02, -89.86, 326.33); // starting position
+
+
+			path_planner->setCartPose(pickup_x, pickup_y, pickup_z_approach);
 
 			// pick up bottles
-			path_planner->setCartPose(home_x, home_y, home_z-0.05);
+			path_planner->setCartPose(pickup_x, pickup_y, pickup_z);
 			servo_control->close_servos();
 			rclcpp::sleep_for(std::chrono::milliseconds(1000)); 
-			path_planner->setCartPose(home_x, home_y, home_z);
+			path_planner->setCartPose(pickup_x, pickup_y, pickup_z_approach);
 			
 			// *** go to bin position *** 		
-			path_planner->setCartPose(b1_x, b1_y, home_z);
+			path_planner->setCartPose(b1_x, b1_y, bin_clear_z);
 			servo_control->open_servos({1,1,1,1,1,1});
 			rclcpp::sleep_for(std::chrono::milliseconds(1000)); 
 
-			path_planner->setCartPose(b2_x, b2_y, home_z);
+			path_planner->setCartPose(b2_x, b2_y, bin_clear_z);
 			servo_control->open_servos({0,0,0,1,1,1});
 			rclcpp::sleep_for(std::chrono::milliseconds(1000)); 
 			
-			path_planner->setCartPose(b3_x, b3_y, home_z);
+			path_planner->setCartPose(b3_x, b3_y, bin_clear_z);
 			servo_control->open_servos({0,0,0,0,0,0});
 			rclcpp::sleep_for(std::chrono::milliseconds(1000)); 
 
 			// go home
-			path_planner->setJointGoal(90, -90, 90, -90, -90, 0); // starting position
+			path_planner->setCartPose(b2_x, b2_y, pickup_z_approach);
+			path_planner->setJointGoal(60, -100, 50, -30, -95, -30); // starting position
+
+			// path_planner->setCartPose(pickup_x, pickup_y, pickup_z_approach);
+
 			path_planner->resetRunState();
 			RCLCPP_INFO(logger, "Sequence completed. Bottles have been sorted");
 		}
