@@ -31,6 +31,7 @@ def launch_setup(context, *args, **kwargs):
     warehouse_sqlite_path = LaunchConfiguration("warehouse_sqlite_path")
     prefix = LaunchConfiguration("prefix")
     use_sim_time = LaunchConfiguration("use_sim_time")
+    simulation = LaunchConfiguration("simulation")
 
     joint_limit_params = PathJoinSubstitution(
         [FindPackageShare(description_package), "include", "config", ur_type, "joint_limits.yaml"]
@@ -190,6 +191,7 @@ def launch_setup(context, *args, **kwargs):
             moveit_controllers,
             planning_scene_monitor_parameters,
             {"use_sim_time": use_sim_time},
+            {"simulation": simulation},
             warehouse_ros_config,
         ],
     )
@@ -200,8 +202,23 @@ def launch_setup(context, *args, **kwargs):
         # name="servo_serial_node",
         output="screen"
     )
+
+    # realsense_node = Node(
+    #     package="realsense2_camera",
+    #     executable="realsense2_camera_node",
+    #     name="realsense2_camera_node",
+    #     output="screen",
+    #     parameters=[{"use_sim_time": use_sim_time}],
+    # )   
+
+    # realsense_capture_node = Node(
+    #     package="bottle_cap_vision",
+    #     executable="realsense_capture_node",
+    #     name="realsense_capture_node",
+    #     output="screen"
+    # )
     
-    nodes_to_start = [bottle_sorter_node, servo_node]
+    nodes_to_start = [bottle_sorter_node, servo_node] #, realsense_capture_node, realsense_node]
 
     return nodes_to_start
 
@@ -312,6 +329,13 @@ def generate_launch_description():
     )
     declared_arguments.append(
         DeclareLaunchArgument("launch_servo", default_value="true", description="Launch Servo?")
+    )
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "simulation",
+            default_value="false",
+            description="Run the bottle_sorter node in simulation mode (no hardware)",
+        )
     )
 
     return LaunchDescription(declared_arguments + [OpaqueFunction(function=launch_setup)])

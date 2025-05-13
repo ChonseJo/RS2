@@ -65,7 +65,10 @@
         "thread": "cpp",
         "cinttypes": "cpp",
         "typeindex": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "any": "cpp",
+        "variant": "cpp",
+        "*.txx": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "editor.tabSize": 4

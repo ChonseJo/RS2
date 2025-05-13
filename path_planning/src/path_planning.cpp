@@ -61,7 +61,7 @@ public:
 
     if (success)
     {
-        RCLCPP_INFO(rclcpp::get_logger("MoveIt"), "Planning successful. Executing the plan...");
+        // RCLCPP_INFO(rclcpp::get_logger("MoveIt"), "Planning successful. Executing the plan...");
         
         // Execute the motion
         move_group_interface_->execute(plan);
@@ -96,7 +96,7 @@ public:
     bool success = (move_group_interface_->plan(plan) == moveit::core::MoveItErrorCode::SUCCESS);
 
     if (success){
-      RCLCPP_INFO(this->get_logger(), "Plan successful. Moving to target...");
+      // RCLCPP_INFO(this->get_logger(), "Plan successful. Moving to target...");
       move_group_interface_->execute(plan);
     }
     else{
@@ -134,11 +134,11 @@ public:
     moveit_msgs::msg::RobotTrajectory trajectory;
     double fraction = move_group_interface_->computeCartesianPath(waypoints, eef_step, 0.0, trajectory);
 
-    RCLCPP_INFO(this->get_logger(), "Cartesian path computed with %.2f%% success", fraction * 100.0);
+    // RCLCPP_INFO(this->get_logger(), "Cartesian path computed with %.2f%% success", fraction * 100.0);
 
     // Execute the path if successful
     if (fraction > 0.9) {
-        RCLCPP_INFO(this->get_logger(), "Executing Cartesian path...");
+        // RCLCPP_INFO(this->get_logger(), "Executing Cartesian path...");
         move_group_interface_->execute(trajectory);
     }
     else {
@@ -174,11 +174,11 @@ public:
     moveit_msgs::msg::RobotTrajectory trajectory;
     double fraction = move_group_interface_->computeCartesianPath(waypoints, eef_step, 0.0, trajectory);
 
-    RCLCPP_INFO(this->get_logger(), "Cartesian path computed with %.2f%% success", fraction * 100.0);
+    // RCLCPP_INFO(this->get_logger(), "Cartesian path computed with %.2f%% success", fraction * 100.0);
 
     // Execute the path if successful
     if (fraction > 0.9) {
-        RCLCPP_INFO(this->get_logger(), "Executing Cartesian path...");
+        // RCLCPP_INFO(this->get_logger(), "Executing Cartesian path...");
         move_group_interface_->execute(trajectory);
     }
     else {
@@ -214,11 +214,11 @@ public:
     moveit_msgs::msg::RobotTrajectory trajectory;
     double fraction = move_group_interface_->computeCartesianPath(waypoints, eef_step, 0.0, trajectory);
 
-    RCLCPP_INFO(this->get_logger(), "Cartesian path computed with %.2f%% success", fraction * 100.0);
+    // RCLCPP_INFO(this->get_logger(), "Cartesian path computed with %.2f%% success", fraction * 100.0);
 
     // Execute the path if successful
     if (fraction > 0.9) {
-        RCLCPP_INFO(this->get_logger(), "Executing Cartesian path...");
+        // RCLCPP_INFO(this->get_logger(), "Executing Cartesian path...");
         move_group_interface_->execute(trajectory);
     }
     else {
