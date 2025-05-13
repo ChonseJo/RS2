@@ -36,8 +36,13 @@ ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3e robot_ip:=yyy.yyy
 ```
 
 ### Launch a custom UR3e MoveIt config in rviz
+Launched with real world hardware
 ```bash
 ros2 launch ur3_bottle_sorter ur_moveit.launch.py ur_type:=ur3e launch_rviz:=true
+```
+Simulated in rviz
+```bash
+ros2 launch ur3_bottle_sorter bottle_sorter.launch.py ur_type:=ur3e simulation:=true
 ```
 
 ### Launch the bottle sorting system (and Servo Controller)
