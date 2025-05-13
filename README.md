@@ -40,14 +40,26 @@ ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3e robot_ip:=yyy.yyy
 ros2 launch ur3_bottle_sorter ur_moveit.launch.py ur_type:=ur3e launch_rviz:=true
 ```
 
-### Launch the bottle sorting system
+### Launch the bottle sorting system (and Servo Controller)
 ```bash
 ros2 launch ur3_bottle_sorter bottle_sorter.launch.py ur_type:=ur3e
 ```
 
+### Run the RealSense Camera
+```bash
+ros2 run realsense2_camera realsense2_camera_node
+```
+
+### Run the Bottle Cap Vision Package
+```bash
+ros2 run bottle_cap_vision realsense_capture_node
+```
+
+
 ### Launch the Servo Controller
 ```bash
 ros2 run servo_controller servo_serial_node
+
 ```
 ---
 
