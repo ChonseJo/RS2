@@ -1,0 +1,14 @@
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/uninstall.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/bottle_cap_vision_uninstall.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/hsv_click_detector.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/cap_dot_representation.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/realsense_capture_node.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/image_saver_node.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/test_roi.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/test.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/edit_cache.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/rebuild_cache.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/list_install_components.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/install.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/install/local.dir
+/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision/CMakeFiles/install/strip.dir

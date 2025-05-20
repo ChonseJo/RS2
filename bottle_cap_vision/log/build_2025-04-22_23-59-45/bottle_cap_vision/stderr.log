@@ -1,0 +1,7 @@
+[01m[K/home/luis/ros2_ws/src/bottle_cap_vision/src/realsense_capture_node.cpp:[m[K In member function ‘[01m[Kvoid RealSenseCaptureNode::processImage(const cv::Mat&)[m[K’:
+[01m[K/home/luis/ros2_ws/src/bottle_cap_vision/src/realsense_capture_node.cpp:244:29:[m[K [01;31m[Kerror: [m[K‘[01m[KfindCellIndex[m[K’ was not declared in this scope
+  244 |               int cellIdx = [01;31m[KfindCellIndex[m[K(d.centroid);  // your existing ROI‐lookup function, returns 0..5
+      |                             [01;31m[K^~~~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/realsense_capture_node.dir/build.make:76: CMakeFiles/realsense_capture_node.dir/src/realsense_capture_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:197: CMakeFiles/realsense_capture_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

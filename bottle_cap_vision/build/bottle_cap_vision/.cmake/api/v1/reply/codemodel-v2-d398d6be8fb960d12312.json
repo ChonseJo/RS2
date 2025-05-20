@@ -1,0 +1,115 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-49defd5cb4f0a367c24b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "bottle_cap_vision",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "bottle_cap_vision_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-bottle_cap_vision_uninstall-affc36dd9b59312e6f9f.json",
+					"name" : "bottle_cap_vision_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cap_dot_representation::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cap_dot_representation-35c7876661c7dd943f2e.json",
+					"name" : "cap_dot_representation",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "hsv_click_detector::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-hsv_click_detector-f22d243a110bdc629f28.json",
+					"name" : "hsv_click_detector",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "image_saver_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-image_saver_node-c8d58a57929d42797d49.json",
+					"name" : "image_saver_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "realsense_capture_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-realsense_capture_node-b6669e6a80f37e1b5376.json",
+					"name" : "realsense_capture_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_roi::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_roi-f3354b1f856f940f9866.json",
+					"name" : "test_roi",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-699db132202a3542a6b2.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/luis/ros2_ws/src/bottle_cap_vision/build/bottle_cap_vision",
+		"source" : "/home/luis/ros2_ws/src/bottle_cap_vision"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}
