@@ -1,0 +1,264 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROS Data Viewer</title>
+    <style>
+        /* Basic styling would be here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: block; /* Will be changed based on whether there's a warning */
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>ROS Data Viewer</h1>
+
+    <div class="warning">
+        Loading Warning Data...
+    </div>
+
+    <div class="section">
+        <h2>State Data</h2>
+        <p>Waiting for state data...</p>
+    </div>
+
+    <div class="section">
+        <h2>Number of Bottles</h2>
+        <p>Waiting for number of bottle data...</p>
+    </div>
+
+    <div class="section">
+        <h2>Type of Bottle</h2>
+        <p>Waiting for type of bottle data...</p>
+    </div>
+
+    <div class="section">
+        <h2>Fanta Bottles</h2>
+        <p>Waiting for number of Fanta bottles...</p>
+    </div>
+
+    <div class="section">
+        <h2>Cola Bottles</h2>
+        <p>Waiting for number of Cola bottles...</p>
+    </div>
+
+    <div class="section">
+        <h2>Sprite Bottles</h2>
+        <p>Waiting for number of Sprite bottles...</p>
+    </div>
+
+    <div class="section">
+        <h2>Other Bottles</h2>
+        <p>Waiting for number of other bottles...</p>
+    </div>
+
+    <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
+
+    <script>
+        // JavaScript would be here to fetch data from the ROS system
+        // Example of how it might look:
+        
+        function fetchData() {
+            fetch('/data')
+                .then(response => response.json())
+                .then(data => {
+                    // Update the DOM with data
+                    updateWarningData(data.warning_data);
+                    updateStateData(data.state_data);
+                    updateBottleCount(data.number_of_bottle);
+                    updateBottleType(data.type_of_bottle);
+                    updateFantaBottles(data.number_of_fanta_bottle);
+                    updateColaBottles(data.number_of_cola_bottle);
+                    updateSpriteBottles(data.number_of_sprite_bottle);
+                    updateOtherBottles(data.number_of_other_bottle);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        // Initial fetch and set interval
+        fetchData();
+        setInterval(fetchData, 5000); // Update every 5 seconds
+        
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROS Data Viewer</title>
+    <style>
+        /* Basic styling would be here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: block; /* Will be changed based on whether there's a warning */
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>ROS Data Viewer</h1>
+
+    <div class="warning">
+        Loading Warning Data...
+    </div>
+
+    <div class="section">
+        <h2>State Data</h2>
+        <p>Waiting for state data...</p>
+    </div>
+
+    <div class="section">
+        <h2>Number of Bottles</h2>
+        <p>Waiting for number of bottle data...</p>
+    </div>
+
+    <div class="section">
+        <h2>Type of Bottle</h2>
+        <p>Waiting for type of bottle data...</p>
+    </div>
+
+    <div class="section">
+        <h2>Fanta Bottles</h2>
+        <p>Waiting for number of Fanta bottles...</p>
+    </div>
+
+    <div class="section">
+        <h2>Cola Bottles</h2>
+        <p>Waiting for number of Cola bottles...</p>
+    </div>
+
+    <div class="section">
+        <h2>Sprite Bottles</h2>
+        <p>Waiting for number of Sprite bottles...</p>
+    </div>
+
+    <div class="section">
+        <h2>Other Bottles</h2>
+        <p>Waiting for number of other bottles...</p>
+    </div>
+
+    <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
+
+    <script>
+        function updateWarningData(data) {
+            const warningElement = document.querySelector('.warning');
+            if (data) {
+                warningElement.textContent = data;
+                warningElement.style.display = 'block';
+            } else {
+                warningElement.style.display = 'none';
+            }
+        }
+
+        function updateStateData(data) {
+            const stateElement = document.querySelector('.section:nth-child(2) p');
+            stateElement.textContent = data;
+        }
+
+        function updateBottleCount(data) {
+            const bottleCountElement = document.querySelector('.section:nth-child(3) p');
+            bottleCountElement.textContent = `Number of bottles: ${data}`;
+        }
+
+        function updateBottleType(data) {
+            const bottleTypeElement = document.querySelector('.section:nth-child(4) p');
+            bottleTypeElement.textContent = `Type of bottle: ${data}`;
+        }
+
+        function updateFantaBottles(data) {
+            const fantaBottlesElement = document.querySelector('.section:nth-child(5) p');
+            fantaBottlesElement.textContent = `Number of Fanta bottles: ${data}`;
+        }
+
+        function updateColaBottles(data) {
+            const colaBottlesElement = document.querySelector('.section:nth-child(6) p');
+            colaBottlesElement.textContent = `Number of Cola bottles: ${data}`;
+        }
+
+        function updateSpriteBottles(data) {
+            const spriteBottlesElement = document.querySelector('.section:nth-child(7) p');
+            spriteBottlesElement.textContent = `Number of Sprite bottles: ${data}`;
+        }
+
+        function updateOtherBottles(data) {
+            const otherBottlesElement = document.querySelector('.section:nth-child(8) p');
+            otherBottlesElement.textContent = `Number of other bottles: ${data}`;
+        }
+
+        function fetchData() {
+            fetch('/data')
+                .then(response => response.json())
+                .then(data => {
+                    updateWarningData(data.warning_data);
+                    updateStateData(data.state_data);
+                    updateBottleCount(data.number_of_bottle);
+                    updateBottleType(data.type_of_bottle);
+                    updateFantaBottles(data.number_of_fanta_bottle);
+                    updateColaBottles(data.number_of_cola_bottle);
+                    updateSpriteBottles(data.number_of_sprite_bottle);
+                    updateOtherBottles(data.number_of_other_bottle);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        fetchData();
+        setInterval(fetchData, 5000); // Update every 5 seconds
+    </script>
+</body>
+</html>

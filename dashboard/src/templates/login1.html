@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Robotics Studio 2: Big Booty Bottle Boys</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset all margins, paddings, and box-sizing */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Fullscreen background image with overlay */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-image: url('https://www.example.com/your-image.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        /* Dark overlay for the background */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Main container for the form */
+        .login-container {
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.8); /* Light background for form */
+            border-radius: 12px;
+            padding: 40px 50px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Header for the form */
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+            color: #333;
+        }
+
+        /* Input fields and labels */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f8f8f8;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2575fc;
+            background-color: #fff;
+        }
+
+        /* Submit button */
+        .form-group button {
+            width: 100%;
+            padding: 14px;
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #6a11cb;
+            transform: translateY(-4px);
+        }
+
+        /* Flash messages */
+        .flashes {
+            margin-top: 20px;
+            list-style: none;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        .flashes li {
+            color: #ff4c4c;
+            font-weight: bold;
+        }
+
+        /* Footer text */
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dark overlay -->
+    <div class="overlay"></div>
+
+    <!-- Login form container -->
+    <div class="login-container">
+        <h2>Sign In</h2>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            
+            <!-- User ID input -->
+            <div class="form-group">
+                {{ form.userID.label }}
+                {{ form.userID(size=32) }}
+            </div>
+
+            <!-- Password input -->
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password(size=32) }}
+            </div>
+
+            <!-- Submit button -->
+            <div class="form-group">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Footer with privacy link -->
+    <div class="footer">
+        <p>&copy; 2025 Robotics Studio 2 | <a href="#">Privacy Policy</a></p>
+    </div>
+
+</body>
+</html>
+
