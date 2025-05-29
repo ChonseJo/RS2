@@ -127,49 +127,6 @@ public:
     // Define waypoints for the Cartesian path
     std::vector<geometry_msgs::msg::Pose> waypoints;
     waypoints.push_back(current_pose);  // start at current pose
-<<<<<<< HEAD
-=======
-    waypoints.push_back(target_pose);   // move to target pose
-
-    // Compute the Cartesian path (with a resolution of 1 cm, feel free to adjust it)
-    const double eef_step = 0.01;
-    moveit_msgs::msg::RobotTrajectory trajectory;
-    double fraction = move_group_interface_->computeCartesianPath(waypoints, eef_step, 0.0, trajectory);
-
-    RCLCPP_INFO(this->get_logger(), "Cartesian path computed with %.2f%% success", fraction * 100.0);
-
-    // Execute the path if successful
-    if (fraction > 0.9) {
-        RCLCPP_INFO(this->get_logger(), "Executing Cartesian path...");
-        move_group_interface_->execute(trajectory);
-    }
-    else {
-        RCLCPP_ERROR(this->get_logger(), "Cartesian path planning failed with %.2f%% success", fraction * 100.0);
-    }
-  }
-
-  void setCartPose(double x, double y, double z){
-    auto current_pose = move_group_interface_->getCurrentPose().pose;
-    
-    // Set a target Pose
-    geometry_msgs::msg::Pose target_pose;
-    target_pose.position.x = x;
-    target_pose.position.y = y;
-    target_pose.position.z = z;
-
-    // Set the target orientation (Quaternion)
-    target_pose.orientation.x = current_pose.orientation.x;
-    target_pose.orientation.y = current_pose.orientation.y;
-    target_pose.orientation.z = current_pose.orientation.z;
-    target_pose.orientation.w = current_pose.orientation.w;
-
-    // Set the pose target for MoveGroup
-    move_group_interface_->setPoseTarget(target_pose);
-    
-    // Define waypoints for the Cartesian path
-    std::vector<geometry_msgs::msg::Pose> waypoints;
-    waypoints.push_back(current_pose);  // start at current pose
->>>>>>> b27819e3d911ec6cec2d98839386003e0e73d2ca
     waypoints.push_back(target_pose);   // move to target pose
 
     // Compute the Cartesian path (with a resolution of 1 cm, feel free to adjust it)

@@ -202,7 +202,6 @@ def launch_setup(context, *args, **kwargs):
         # name="servo_serial_node",
         output="screen"
     )
-<<<<<<< HEAD
 
     # realsense_node = Node(
     #     package="realsense2_camera",
@@ -220,10 +219,6 @@ def launch_setup(context, *args, **kwargs):
     # )
     
     nodes_to_start = [bottle_sorter_node, servo_node] #, realsense_capture_node, realsense_node]
-=======
-    
-    nodes_to_start = [bottle_sorter_node, servo_node]
->>>>>>> b27819e3d911ec6cec2d98839386003e0e73d2ca
 
     return nodes_to_start
 
