@@ -1,10 +1,15 @@
 #include <iostream>
+<<<<<<< HEAD
 #include <vector>
 #include <string>
 #include <array>
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "std_msgs/msg/empty.hpp"
+=======
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
+>>>>>>> b27819e3d911ec6cec2d98839386003e0e73d2ca
 
 class ServoControl : public rclcpp::Node
 {
@@ -12,19 +17,28 @@ class ServoControl : public rclcpp::Node
     ServoControl() : Node("servo_control")
     {
       publisher_ = this->create_publisher<std_msgs::msg::String>(
+<<<<<<< HEAD
         "servo_command", 10);
 
       cam_publisher_ = this->create_publisher<std_msgs::msg::Empty>("/capture_caps", 10);
       cam_subscription_ = this->create_subscription<std_msgs::msg::String>(
           "/bottle_sequence", 10,
           std::bind(&ServoControl::topic_callback, this, std::placeholders::_1));
+=======
+        "servo_command", 10
+      );
+>>>>>>> b27819e3d911ec6cec2d98839386003e0e73d2ca
     }
 
     void close_servos()
     {
         auto msg = std_msgs::msg::String();
+<<<<<<< HEAD
         msg.data = "SET:" + closed + "," + closed + "," + closed + "," + closed + ","
                     + closed + "," + closed;
+=======
+        msg.data = "SET:160,160,160,160,160,160";
+>>>>>>> b27819e3d911ec6cec2d98839386003e0e73d2ca
         publisher_->publish(msg);
 
         RCLCPP_INFO(this->get_logger(), "Closing All Servos...");
@@ -35,14 +49,24 @@ class ServoControl : public rclcpp::Node
         std::string str = "SET:";
         for (size_t i = 0; i < servoState.size(); ++i) {
             if (servoState[i] == 0) {
+<<<<<<< HEAD
                 str += closed;
             } else if (servoState[i] == 1) {
                 str += open;
+=======
+                str += "160";
+            } else if (servoState[i] == 1) {
+                str += "100";
+>>>>>>> b27819e3d911ec6cec2d98839386003e0e73d2ca
             }
             if (i + 1 != servoState.size()) {
                 str += ",";
             }
         }
+<<<<<<< HEAD
+=======
+        // str += "\n";
+>>>>>>> b27819e3d911ec6cec2d98839386003e0e73d2ca
         auto msg = std_msgs::msg::String();
         msg.data = str;
         publisher_->publish(msg);
@@ -50,6 +74,7 @@ class ServoControl : public rclcpp::Node
         RCLCPP_INFO(this->get_logger(), "Opening Servos, %s", msg.data.c_str());
     }
 
+<<<<<<< HEAD
     void openBottleTypes(const std::string &type)
     {
         auto state = getBottlePositions(type);
@@ -135,4 +160,8 @@ class ServoControl : public rclcpp::Node
 
     std::string open = "100";
     std::string closed = "140";
+=======
+  private:
+    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
+>>>>>>> b27819e3d911ec6cec2d98839386003e0e73d2ca
   };

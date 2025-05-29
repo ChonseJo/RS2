@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bottle Sorting System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #FF6584;
+            --accent: #4ADEDE;
+            --warning: #FFBB0B;
+            --danger: #FF2965;
+            --success: #1bcc0b;
+            --background: #0A0E1A;
+            --card-bg: #171C31;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B0B7C3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .start-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(108,99,255,0.4);
+        }
+
+        .e-stop-btn {
+            background-color: var(--danger);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .e-stop-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,41,101,0.4);
+        }
+
+        .resume-btn {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .resume-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(27,204,11,0.4);
+        }
+
+        .logout-btn {
+            background-color: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--text-secondary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--text-secondary);
+            color: var(--background);
+        }
+
+        .warning-banner {
+            background: linear-gradient(135deg, var(--warning), #FF6B00);
+            color: var(--background);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .card-value {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary);
+            transition: width 0.5s ease;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                padding: 1rem;
+            }
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .controls {
+                width: 100%;
+                flex-direction: column;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <header class="header">
+            <h1>Bottle Sorting Dashboard</h1>
+            <div class="controls">
+                <button id="startBtn" class="start-btn" onclick="startSystem()">
+                    START SYSTEM
+                </button>
+                <button id="eStopBtn" class="e-stop-btn" onclick="activateEStop()">
+                    EMERGENCY STOP
+                </button>
+                <button id="resumeBtn" class="resume-btn" onclick="resumeSystem()" style="display: none;">
+                    RESUME SYSTEM
+                </button>
+                <a href="/logout" class="logout-btn">Logout</a>
+            </div>
+        </header>
+
+        <div id="warning_data" class="warning-banner"></div>
+
+        <div class="grid-container">
+            <div class="card">
+                <h2>System Status</h2>
+                <div id="state_data" class="card-value">Initializing...</div>
+            </div>
+
+            <div class="card">
+                <h2>Current Bottle</h2>
+                <div id="type_of_bottle" class="card-value">Waiting...</div>
+            </div>
+
+            <div class="card">
+                <h2>Total Bottles</h2>
+                <div id="number_of_bottle" class="card-value">0</div>
+            </div>
+
+            <div class="card">
+                <h2>Fanta Bottles</h2>
+                <div id="number_of_fanta_bottle" class="card-value">0</div>
+                <div class="progress-container">
+                    <div id="fanta_progress" class="progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Cola Bottles</h2>
+                <div id="number_of_cola_bottle" class="card-value">0</div>
+                <div class="progress-container">
+                    <div id="cola_progress" class="progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Sprite Bottles</h2>
+                <div id="number_of_sprite_bottle" class="card-value">0</div>
+                <div class="progress-container">
+                    <div id="sprite_progress" class="progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Other Bottles</h2>
+                <div id="number_of_other_bottle" class="card-value">0</div>
+                <div class="progress-container">
+                    <div id="other_progress" class="progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isSystemStopped = false;
+
+        function activateEStop() {
+            fetch('/e_stop', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    isSystemStopped = true;
+                    document.getElementById('eStopBtn').style.display = 'none';
+                    document.getElementById('resumeBtn').style.display = 'block';
+                    showWarning('SYSTEM STOPPED: Emergency stop activated');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showWarning('Failed to activate emergency stop');
+            });
+        }
+
+        function resumeSystem() {
+            fetch('/resume', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    isSystemStopped = false;
+                    document.getElementById('eStopBtn').style.display = 'block';
+                    document.getElementById('resumeBtn').style.display = 'none';
+                    hideWarning();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showWarning('Failed to resume system');
+            });
+        }
+
+        function showWarning(message) {
+            const banner = document.getElementById('warning_data');
+            banner.textContent = message;
+            banner.style.display = 'block';
+        }
+
+        function startSystem() {
+            fetch('/start', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    hideWarning();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showWarning('Failed to start system');
+            });
+        }
+
+        function hideWarning() {
+            const banner = document.getElementById('warning_data');
+            banner.style.display = 'none';
+        }
+
+        function updateProgress() {
+            const bottles = {
+                fanta: parseInt(document.getElementById('number_of_fanta_bottle').textContent.match(/\d+/) || 0),
+                cola: parseInt(document.getElementById('number_of_cola_bottle').textContent.match(/\d+/) || 0),
+                sprite: parseInt(document.getElementById('number_of_sprite_bottle').textContent.match(/\d+/) || 0),
+                other: parseInt(document.getElementById('number_of_other_bottle').textContent.match(/\d+/) || 0)
+            };
+
+            const total = Object.values(bottles).reduce((sum, val) => sum + val, 0);
+            if (total > 0) {
+                Object.entries(bottles).forEach(([type, count]) => {
+                    const percentage = (count / total) * 100;
+                    document.getElementById(`${type}_progress`).style.width = `${percentage}%`;
+                });
+            }
+        }
+
+        function fetchData() {
+            fetch('/data')
+                .then(response => response.json())
+                .then(data => {
+                    Object.entries(data).forEach(([key, value]) => {
+                        const element = document.getElementById(key);
+                        if (element) {
+                            element.textContent = value;
+                            if (key === 'warning_data' && value !== 'NO WARNING') {
+                                element.style.display = 'block';
+                            } else if (key === 'warning_data') {
+                                element.style.display = 'none';
+                            }
+                        }
+                    });
+                    updateProgress();
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Update data every 500ms
+        setInterval(fetchData, 500);
+    </script>
+</body>
+</html>
