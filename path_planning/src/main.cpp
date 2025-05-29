@@ -58,14 +58,15 @@ int main(int argc, char * argv[])
 	double pickup_y = 0.22;
 	double pickup_z = 0.216;
 	double pickup_z_approach = 0.35;
+	double drop_z = 0.265;
 
 	double bin_clear_z = 0.4;
-	double b1_x = -0.2;
+	double b1_x = 0.2;
 	double b1_y = 0.3;
-	double b2_x = -0.2;
-	double b2_y = 0.15;
-	double b3_x = -0.2;
-	double b3_y = 0.0;
+	double b2_x = 0.2;
+	double b2_y = 0.14;
+	double b3_x = -0.285;
+	double b3_y = 0.21;
 
 	if (!simulation_mode) {
 		RCLCPP_INFO(logger, "Testing Servos...");
@@ -136,29 +137,38 @@ int main(int argc, char * argv[])
 			// *** go to bin position *** 	
 			if(bottles[0]){
 				path_planner->setCartPose(b1_x, b1_y, bin_clear_z);
+				path_planner->setCartPose(b1_x, b1_y, drop_z);
 				RCLCPP_INFO(logger, "Dropping C");
 				if (!simulation_mode) {servo_control->openBottleTypes("C");}
 				rclcpp::sleep_for(std::chrono::milliseconds(5000));
+				path_planner->setCartPose(b1_x, b1_y, bin_clear_z);
 			}
 			if(bottles[1]){
 				path_planner->setCartPose(b2_x, b2_y, bin_clear_z);
+				path_planner->setCartPose(b2_x, b2_y, drop_z);
 				RCLCPP_INFO(logger, "Dropping F");
 				if (!simulation_mode) {servo_control->openBottleTypes("F");}
 				rclcpp::sleep_for(std::chrono::milliseconds(5000));  
+				path_planner->setCartPose(b2_x, b2_y, bin_clear_z);
 			}
 			if(bottles[2]){
+				path_planner->setCartPose(pickup_x, pickup_y, bin_clear_z);
 				path_planner->setCartPose(b3_x, b3_y, bin_clear_z);
+				path_planner->setCartPose(b3_x, b3_y, drop_z);
 				RCLCPP_INFO(logger, "Dropping S");
 				if (!simulation_mode) {servo_control->openBottleTypes("S");}
 				rclcpp::sleep_for(std::chrono::milliseconds(5000));  
+				path_planner->setCartPose(b3_x, b3_y, bin_clear_z);
 			}
-
-			// servo_control->open_servos({1,1,1,1,1,1});
-			// rclcpp::sleep_for(std::chrono::milliseconds(5000));  
 
 			// go home
 			path_planner->setJointGoal(60, -100, 50, -30, -95, -30); // camera detect position
-			rclcpp::sleep_for(std::chrono::milliseconds(2000));  
+			if (!simulation_mode) {
+				servo_control->open_servos({1,1,1,1,1,1});
+				rclcpp::sleep_for(std::chrono::milliseconds(2000));  
+			}
+			path_planner->resetRunState();
+			RCLCPP_INFO(logger, "Sequence Ended: No Bottles Detected");
 		}
 	}
 
